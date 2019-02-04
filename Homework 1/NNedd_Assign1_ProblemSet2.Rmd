@@ -1,0 +1,77 @@
+---
+title: "DATA 605  - Homework 1"
+author: "N Nedd"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+## Problem Set 2
+
+### The function
+
+```{r}
+mySolve <- function(A,n, m) {
+  r <-0
+  
+  for (j in 1:n)
+  {
+    i <- r+1
+    while (i <= m && A[i,j] ==0)
+    {
+      i <- i+1
+    }
+    if(i < m+1)
+    {
+      r <- r+1
+      #swap rows i and r of A (row op 1)
+      temp <- A[i,]
+      A[i,] <- A[r,]
+      A[r,] <- temp
+      
+      #scale A[r,j] to a leading 1 (row op 2)
+      temp <- A[r,]/A[r,j]
+      A[r,] <- temp
+      
+      for(k in 1:m)
+      {
+        if(k != r)
+        {
+          #make A[k,j] zero (row op 3. employing row r)
+          #A[k,j] <- 0
+          A[k, ] <- A[k, ] - A[r, ] * A[k, j]
+        }
+      }
+      
+      
+    }
+  }
+  
+  return (A[,4])
+}
+
+```
+
+###Defining the Matrix and calling the function
+
+```{r}
+#Define test matrix
+
+TestMatrix <- matrix(c(1,2,-1,1,-1,-2,3,5,4,1,2,6), nrow=3, ncol=4)
+
+#Call Function
+Ans <- mySolve(TestMatrix, 4, 3)
+Ans
+
+```
+
+### References
+
+The algorithm used for the function followed the algorithm specified in the Linear Algebra Text, Chapter SLE, Subsection RREF, Page 31.
+Also received help from Rosetta Code Website (https://rosettacode.org/wiki/Reduced_row_echelon_form#R)
+
+
+
+

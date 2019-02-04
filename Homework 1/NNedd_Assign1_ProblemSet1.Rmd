@@ -1,0 +1,99 @@
+---
+title: "Data 605 - Homework 1"
+author: "N Nedd"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+
+```{r setup_packages, include = FALSE}
+require(geometry)
+```
+
+## Problem Set One
+
+
+```{r}
+u <- c(0.5,0.5)
+v <- c(3,-4)
+
+```
+
+
+1) The dot product
+
+The dot product is as follows:
+
+(0.5 x 3) + (0.5 x -4) = -0.5
+
+The dot() function in R can also be used
+
+```{r}
+dot_prod <- dot(u,v)
+
+```
+The dot product is: `r dot_prod`
+
+2) Lengths of u and v
+
+Length of a vector:
+
+$\sqrt(x^2 + y^2)$
+
+Length of u:
+
+$\sqrt(0.5^2 + 0.5^2)$  = 0.707
+
+Length of v:
+
+$\sqrt(3^2 + -4^2)$  = 5
+
+In R:
+
+```{r}
+len_u <- sqrt(sum(u * u))
+
+len_v <- sqrt(sum (v * v))
+
+```
+
+The length of U is: `r len_u`
+
+The length of v is: `r len_v`
+
+3) 2u - 3v
+
+2u = (2*0.5, 2*0.5) = (1,1)
+3v = (3*3,3*-4) = (9,-12)
+
+2u - 3v = (1-9,1--12) = (-8,13)
+
+In R:
+
+```{r}
+
+comb <- 2*u - 3*v
+```
+
+The linear combination is: `r comb`
+
+4) Angle between u and v
+
+cos inverse (dotproduct/product of lengths)
+
+cos inverse ((-0.5)/(0.7071068*5)) = 98.1301 degrees
+
+In R:
+
+```{r}
+anglebet <- acos((-0.5)/(0.7071068*5))
+
+#Since answer is in radians, it needs to be converted to degrees
+angledegrees <- anglebet *180/pi
+
+```
+
+The angle between u and v is: `r angledegrees` degrees
