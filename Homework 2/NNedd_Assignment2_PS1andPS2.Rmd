@@ -1,0 +1,221 @@
+---
+title: "DATA 605 - Assignment 2"
+author: "N Nedd"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+    toc: true
+    toc_depth: 2
+---
+
+## Problem Set 1
+
+
+
+
+### Theory
+
+According to a Khan Academy article about the Properties of Matrix Multiplication (https://www.khanacademy.org/math/precalculus/precalc-matrices/properties-of-matrix-multiplication/a/properties-of-matrix-multiplication), the commutative property does not hold for matrix multiplication.  Therefore, if A and B are two matrices, then AB $\neq$ BA.
+
+###An example
+
+A : 
+\[
+ \begin{bmatrix}
+  1 & 2 \\
+  3 & 4 
+ \end{bmatrix}
+\]
+
+$A^{T}$ = \[
+ \begin{bmatrix}
+  1 & 3 \\
+  2 & 4 
+ \end{bmatrix}
+\]
+
+
+$AA^{T}$ = A * $A^{T}$ = 
+\[
+ \begin{bmatrix}
+  1 & 2 \\
+  3 & 4 
+ \end{bmatrix} * \begin{bmatrix}
+  1 & 3 \\
+  2 & 4 
+ \end{bmatrix} =  \begin{bmatrix}
+  1+4 & 3+8 \\
+  3+8 & 9+16 
+ \end{bmatrix} = \begin{bmatrix}
+  5 & 11 \\
+  11 & 25 
+ \end{bmatrix}
+\]
+
+
+$A^{T}A$ = $A^{T}$ * A = 
+\[
+ \begin{bmatrix}
+  1 & 3 \\
+  2 & 4 
+ \end{bmatrix} * \begin{bmatrix}
+  1 & 2 \\
+  3 & 4 
+ \end{bmatrix} =  \begin{bmatrix}
+  1+9 & 2+12 \\
+  2+12 & 4+16 
+ \end{bmatrix} = \begin{bmatrix}
+  10 & 14 \\
+  14 & 20 
+ \end{bmatrix}
+\]
+
+
+Clearly, 
+
+\[\begin{bmatrix}
+  5 & 11 \\
+  11 & 25 
+ \end{bmatrix} \neq \begin{bmatrix}
+  10 & 14 \\
+  14 & 20 
+ \end{bmatrix}\]
+ 
+ 
+ In R:
+ 
+
+$AA^{T}$
+```{r}
+
+matrixA <- matrix(c(1,3,2,4), nrow=2, ncol=2)
+matrixA
+
+transposeA <- t(matrixA)
+transposeA
+
+AtransposeA <- matrixA %*% transposeA
+AtransposeA
+
+```
+
+ $A^{T}A$
+
+```{r}
+transposeAA <- transposeA %*% matrixA
+transposeAA
+```
+
+The two values are not equal
+
+
+2) The condition $A^{T}A$ = $AA^{T}$ is statisfied if A the matrix is a symmetric matrix since in a symmetric matrix $A = A^{T}$.  
+
+
+
+
+###Problemset 2
+
+
+#### The function
+
+```{r}
+myMatrixFactor <- function(A, n)
+{
+  for(i in 1:n)
+{
+  #Upper Triangular matrix
+  for(k in i:n)
+  {
+    total <- 0
+    for(j in 1:i)
+    {
+      total <- total + lowerA[i,j] * upperA[j,k]
+    }
+    upperA[i,k] <- A[i,k] - total
+  }
+  
+  #Lower triangular matrix
+  for(k in i: n)
+  {
+    if(i==k)
+    {
+      lowerA[i,i] <- 1
+    }
+    else
+    {
+      total <- 0
+      for(j in 1:i)
+      {
+        total <- total + lowerA[k,j]*upperA[j,i]
+      }
+      lowerA[k,i] <- (A[k,i] - total)/ upperA[i,i]
+    }
+  }
+  
+  }
+  
+  list1 <- list()
+  
+  list1[[1]] <- A
+  list1[[2]] <- lowerA
+  list1[[3]] <- upperA
+  return (list1)
+}
+```
+
+
+#### CAlling the function
+```{r}
+
+lowerA <- matrix(0,3,3)
+upperA <- matrix(0,3,3)
+
+#Define test matrix
+
+n <- 3
+Testmatrix <- matrix(c(2,-4,-4,-1,6,-2,-2,3,8), nrow=3, ncol=3)
+
+#Call Function
+Ans <- myMatrixFactor(Testmatrix,3)
+
+
+
+
+
+```
+
+
+The Results are as follows:
+
+The original matrix is:
+
+```{r}
+Testmatrix
+```
+
+The lower triangular matrix (L) is: 
+
+```{r}
+Ans[[2]]
+```
+
+The upper triangular matrix (U) is:
+
+```{r}
+Ans[[3]]
+```
+
+
+To prove:
+
+```{r}
+Checkans <- Ans[[2]] %*% Ans[[3]]
+
+Checkans
+```
+
+Therefore A = LU
+
