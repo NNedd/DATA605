@@ -1,0 +1,84 @@
+---
+title: "Your Document Title"
+author: "Document Author"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+---
+
+##Problem Set 1
+
+
+###Solution
+
+1)  Each row/column is independent therefore, the rank of the matrix A is 4.  This can be calculated in R as follows
+
+```{r}
+A <- cbind(c(1,-1,0,5),c(2,0,1,4), c(3,1,-2,-2),c(4,3,1,-3))
+A
+Ans <- qr(A)
+RankA <- Ans$rank
+RankA
+```
+
+2)  For a mxn matrix if m > n, the maximum rank is n.
+    Assuming the matrix  is non-zero, the minimum rank is 1.
+    
+
+3)  The rank of the matrix B is 1.  The first column is independent.  The second is twice the first column and therefore not independent.  The third column is half the second column and therefore also not independent.
+
+```{r}
+B <- cbind(c(1,3,2), c(2,6,4), c(1,3,2))
+B
+Ans <- qr(B)
+RankB <- Ans$rank
+RankB
+```
+
+##Problem Set 2
+
+###Solution
+
+The characteristic polynomial is determined as follows:
+
+$A = \begin{bmatrix} 1 & 2 & 3 \\ 0 & 4 & 5 \\ 0 & 0 & 6\end{bmatrix}$
+
+$det\begin{Bmatrix} \lambda \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix} - \begin{bmatrix} 1 & 2 & 3 \\ 0 & 4 & 5 \\ 0 & 0 & 6\end{bmatrix} = 0 \end{Bmatrix}$
+
+$det \begin{bmatrix} \lambda - 1 & 2 & 3 \\ 0 & \lambda - 4 & 5 \\ 0 & 0 & \lambda - 6 \end{bmatrix} = 0$
+
+$(\lambda-1)[(\lambda - 4)(\lambda - 6) - 0]-2(0)+3(0) = 0$
+
+$(\lambda - 1)(\lambda^2 - 10\lambda +24) = 0$
+
+$\lambda^3 - 11\lambda^2+34\lambda-24 = 0$   => This is the characteristic polynomial
+
+####To find eigen values
+
+If we back track to this line 
+$(\lambda - 1)(\lambda^2 - 10\lambda +24) = 0$
+
+we can see that $\lambda - 1 = 0$, therefore $\lambda = 1$
+
+The other eigen values can be found by factorising the other part of the equation 
+$(\lambda - 1)(\lambda^2 - 10\lambda +24) = 0$  and therefore
+$(\lambda^2 - 10\lambda +24) = 0$
+
+By factorisation
+$(\lambda - 6)(\lambda - 4) = 0$
+
+Therefore if $\lambda - 6 = 0, \lambda = 6$
+and if $\lambda - 4 = 0, \lambda = 4$
+
+The eigen values are 1, 4, and 6
+
+This can also be calculated using R.  See below for calculation of eigen values and vectors.
+```{r}
+Ab <- cbind(c(1,0,0),c(2,4,0),c(3,5,6))
+Ab
+Ans <- eigen(Ab)
+Ans$values
+Ans$vectors
+```
