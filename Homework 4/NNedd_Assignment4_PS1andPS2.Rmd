@@ -1,0 +1,154 @@
+---
+title: "Data 605 - Assignment 4"
+author: "N Nedd"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+
+## Problem Set 1
+
+The Matrix A is defined below:
+```{r}
+A <- matrix(c(1,-1,2,0,3,4), nrow=2)
+A
+```
+
+Using R built-in functions, the transpose of A is found
+```{r}
+transpA <- t(A)
+transpA
+
+```
+
+X is calculated
+```{r}
+X <- A %*% transpA
+X
+```
+
+Y is calculated
+```{r}
+Y <- transpA %*% A
+Y
+```
+
+The Eigen Values & Vectors of X are calculated using R built in function
+```{r}
+eigenX <- eigen(X)
+```
+
+THe Eigen Values of X are : `r eigenX$values`
+
+The Eigen vectors of X are
+```{r}
+eigenX$vectors
+```
+
+
+The Eigen Values and Vectors of Y are calculated using R built in function
+```{r}
+eigenY <- eigen(Y)
+
+```
+
+The Eigen Values of Y are: `r eigenY$values`
+
+
+The Eigen Vectors of Y are:
+```{r}
+eigenY$vectors
+```
+
+
+The SVD values of A are calculated using R built in functions:
+```{r}
+svdA <- svd(A)
+
+```
+
+The singular values of A are:
+```{r}
+
+svdA$d
+```
+
+The left singular vectors of A:
+
+```{r}
+svdA$u
+
+```
+Note that the left singular vectors of A correspond to the eigen vector of X.
+
+The right singular vectors of A:
+
+```{r}
+svdA$v
+
+```
+Note that the right singular vectors of A correspond to the eigen vectors of Y.
+
+
+##Problem Set 2
+
+The function
+```{r}
+myinverse <- function(amatrix)
+{
+  detA <- det(amatrix)
+  #The function assumes a 3 x 3 matrix
+  imatrix <- matrix(,nrow = 3, ncol = 3)
+  
+ 
+  
+  #The co-factor matrix = The determinants of the submatrix of each element of the matrix
+  #The submatrix is determined removing the corresponding row and column of each element of the matrix
+  #Must not forget to multiply by -1 to the power of i+j for alternating +/- signs
+  for (i in 1:3) {
+    for (j in 1:3){
+      imatrix[i,j] <- ((-1) ^ (i+j) ) * det(amatrix[-i,-j])
+    }}
+  
+  #Divide the transpose of the co-factor matrix by the Determinant of A to find the inverse
+    
+  resultmatrix <- t(imatrix)/detA
+  
+  return(resultmatrix)
+}
+```
+
+
+To test:
+
+Matrix:
+```{r}
+A <- matrix(c(1,2,3,2,1,4,4,2,1), nrow=3)
+
+A
+```
+
+
+Call function
+
+
+
+```{r}
+B <- myinverse(A)
+
+B
+```
+
+
+Check result:
+
+```{r}
+I <- A %*% B
+
+I
+```
+
+
