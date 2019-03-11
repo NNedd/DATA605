@@ -1,0 +1,182 @@
+---
+title: "Your Document Title"
+author: "Document Author"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+## Question 1
+
+Total number of marbles = 54+9+75 = 138
+
+Probabilty of red marble = $\frac{54}{138}$
+Probabilty of blue marble = $\frac{75}{138}$
+
+Probability or red or blue marble = $\frac{54}{138} + \frac{75}{138} = \frac{43}{46}$
+
+Answer = 0.9348
+
+
+## Question 2
+
+
+Total number of balls = 19+20+24+17 = 80
+
+Probabilty of red ball = $\frac{20}{80}$ 
+
+Answer = 0.2500
+
+
+
+## Question 3
+
+
+Let F represent not male and NP represent not parents:
+
+P(F or NP) = P(F) + P(NP) - P(F and NP)
+
+P(F) = Total Non Males/Total Customers = (228+79+252+97+72)/1399 = 728/1399
+
+P(NP) = Total Not Parents/Total Customers = (81+228+116+79+130+97+129+72)/1399 = 932/1399
+
+P(F and NP) = (228+79+97+72)/1399 = 476/1399
+
+P(F or NP) = 728/1399 + 932/1399 - 476/1399 = 1184/1399
+
+Answer = 0.8463
+
+
+
+## Question 4
+
+
+The events are Dependent (A)
+
+
+
+## Question 5
+
+8C3 X 7C3 x 3C1
+
+```{r}
+Ans <- choose(8,3) * choose(7,3) * choose(3,1)
+Ans
+
+```
+
+
+
+
+## Question 6
+
+The events are independent (B)
+
+
+
+
+## Question 7
+
+
+14P8
+
+Ans = 121,080,960
+
+
+
+
+## Question 8
+
+Total possible combinations = 22C4
+
+Probability of 1 orange = 4C1 / 22C4
+
+Probability of 3 green = 9C3/22C4
+
+```{r}
+
+total <- choose(22,4)
+
+Ans = choose(4,1) * choose(9,3) / total
+Ans
+
+```
+
+
+
+
+## Question 9
+
+
+```{r}
+Ans = factorial(11)/factorial(7)
+Ans
+```
+
+
+
+
+## Question 10
+
+
+33% of subscribers to a fitness magazine are 34 years or younger
+
+
+
+## Question 11
+
+
+
+Part A
+
+```{r}
+
+Prob3 <- dbinom(3, size=4, prob=0.5)
+Not3 <- 1 - Prob3
+
+expValue = (Prob3 * 97) - (Not3 * 30) 
+expValue
+```
+
+
+Part B
+
+```{r}
+Ans = 559*1.75
+Ans
+
+```
+
+
+## Question 12
+
+
+Part A
+
+```{r}
+Prob4 <- pbinom(4, size=9, prob=0.5)
+Not4 <- 1- Prob4
+
+expvalue = (23 * Prob4) - (26*Not4)
+expvalue
+
+```
+
+Part B
+
+```{r}
+Ans = 994 * -1.5
+Ans
+
+```
+
+
+
+
+
+
+ 
+
+
