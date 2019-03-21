@@ -1,0 +1,146 @@
+---
+title: "Data 605 - Assignment 7"
+author: "NNedd"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+## Question 1
+
+
+## Question 2
+
+
+Let X represent the number of years until the machine fails.
+
+### Part A
+
+
+
+For geometric distribution:
+
+$f(x) = P(X=x) = (1 - p)^{x-1}p$
+
+In this case:
+$P(X=8) = (\frac{9}{10})^7 * \frac{1}{10}$
+
+```{r}
+
+Ans <- dgeom(8,0.1)
+Ans
+```
+
+Expected value = $\frac{1}{p}$
+
+
+
+```{r}
+Ans = 1/(1/10)
+Ans
+
+```
+
+
+standard deviation = $\sqrt(1-p)/p^2$
+
+
+```{r}
+
+Ans = sqrt((1 - (1/10))/((1/10)^2))
+Ans
+```
+
+
+###Part B
+
+
+
+For exponential distribution
+
+Rate = 1/10
+
+Failure after 8 years:
+1 - P(X <= 8)
+
+```{r}
+Ans <- 1 - pexp(8,0.1)
+Ans
+```
+
+Expected Value - 1/0.1
+
+```{r}
+Ans = 1/0.1
+Ans
+```
+
+Standard Deviation = 1/(0.1)^2
+
+```{r}
+Ans = 1/((0.1)^2)
+Ans
+```
+
+### Part C
+
+
+
+For Binomial Distribution
+
+X ~ B(8, 0.1)
+P(X = 0)
+
+```{r}
+
+Ans = dbinom(0, size=8, prob=0.1) 
+Ans
+
+```
+
+Expected Value = n * p
+
+```{r}
+Ans = 8 * 0.1
+Ans
+
+```
+
+
+
+Standard Deviation = $\sqrt(np * (1-p)$
+
+```{r}
+Ans = sqrt((8 * 0.1) * (1 - 0.1))
+Ans
+
+```
+
+
+### Part D
+
+
+
+
+X ~ P(0.8)
+
+P(X=0)
+
+```{r}
+Ans = ppois(0,0.8)
+Ans
+
+```
+
+
+Expected Value = Variance = 0.8
+Standard Deviation:
+
+```{r}
+Ans = sqrt(0.8)
+Ans
+
+```
+
